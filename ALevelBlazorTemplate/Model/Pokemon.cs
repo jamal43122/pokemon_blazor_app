@@ -7,10 +7,10 @@ namespace pokedex.Model
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [Required]
         [Range(1, 800, ErrorMessage = "Total must be between 1 and 800")]
@@ -39,6 +39,6 @@ namespace pokedex.Model
         [Required]
         public bool Legendary { get; set; }
 
-        public List<Trainer> Trainers { get; set; }
+        public List<Trainer>? Trainers { get; set; }
     }
 }

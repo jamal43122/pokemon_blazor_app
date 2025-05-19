@@ -6,8 +6,8 @@ namespace pokedex.Model
     {
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required]
-        public Pokemon Companion { get; set; }
+        public Pokemon? Companion { get; set; }
     }
 }

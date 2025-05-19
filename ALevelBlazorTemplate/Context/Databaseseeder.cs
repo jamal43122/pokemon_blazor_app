@@ -9,7 +9,7 @@ namespace pokedex.Context
         private readonly DatabaseContext _context;
         private readonly UserManager<User> _userManager;
 
-        public DatabaseSeeder(DatabaseContext context, UserManager<User> userManager)
+        public Databaseseeder(DatabaseContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -872,4 +872,5 @@ namespace pokedex.Context
                 _context.SaveChanges();
             }
         }
+    }
 }
