@@ -1,9 +1,9 @@
-using ALevelBlazorTemplate.Components;
-using ALevelBlazorTemplate.Components.Account;
-using ALevelBlazorTemplate.Context;
-using ALevelBlazorTemplate.Model;
+using pokedex.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using pokedex.Components.Account;
+using pokedex.Context;
+using pokedex.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +15,8 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+
+builder.Services.AddScoped<Databaseseeder>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -30,6 +32,10 @@ builder.Services.AddIdentityCore<User>()
     .AddSignInManager();
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetService<Databaseseeder>();
+await seeder!.Seed();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

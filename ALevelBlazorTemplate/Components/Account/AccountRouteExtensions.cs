@@ -1,8 +1,8 @@
-﻿using ALevelBlazorTemplate.Model;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using pokedex.Model;
 using System.Security.Claims;
 
-namespace ALevelBlazorTemplate.Components.Account
+namespace pokedex.Components.Account
 {
     public static class AccountRouteExtensions
     {
