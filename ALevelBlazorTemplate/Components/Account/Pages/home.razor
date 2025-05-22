@@ -1,0 +1,66 @@
+﻿<h3>home</h3>
+
+@code {
+    ﻿@page "/"
+@rendermode InteractiveServer
+@inject DatabaseContext DbContext
+
+<PageTitle>Pokemon</PageTitle>
+
+<div class="d-flex justify-content-between">
+    <div>
+        <h3>Pokemon</h3>
+    </div>
+    <div>
+        <a @onclick="ShowAddPokemon" class="btn btn-primary">Add Pokemon</a>
+    </div>
+</div>
+
+@if (showForm)
+{
+    <PokemonForm OnSaved="PokemonSaved" Model="pokemon" />
+}
+
+<PokemonList OnEditClicked="ShowEditPokemon" OnDeleteClicked="OnDelete" Pokemons="pokemons"/>
+
+@code{
+    private Pokemon pokemon = new Pokemon();
+    private IQueryable<Pokemon>? pokemons;
+    private bool showForm;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetPokemon();
+    }
+
+    private async Task PokemonSaved()
+    {
+        showForm = false;
+        await GetPokemon();
+    }
+
+    private async Task GetPokemon()
+    {
+        pokemons = (await DbContext.Pokemons.ToListAsync()).AsQueryable();
+    }
+
+    private void ShowAddPokemon()
+    {
+        pokemon = new Pokemon();
+        showForm = !showForm;
+    }
+
+    private void ShowEditPokemon(Pokemon editPokemon)
+    {
+        pokemon = editPokemon;
+        showForm = true;
+    }
+
+    private async Task OnDelete()
+    {
+        showForm = false;
+        await GetPokemon();
+    }
+
+}
+}
